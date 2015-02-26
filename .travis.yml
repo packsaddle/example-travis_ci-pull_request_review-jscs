@@ -1,4 +1,5 @@
 language: node_js
+sudo: false
 env:
   matrix:
   - CI=true
@@ -6,5 +7,13 @@ env:
     secure: eR7QGd9z4VZXoU7zC8yAtd9CaOg7bjhTJ1Fde6bnsOFt3Fr5nSOMMZQ7zgg1Ah4dSPZ7+Ioo9FaFTLkieahbJAaCx0oUGpc01eaO/nrgGMmrWpeO/q67DxyWRdv7SMIjo6wOZS6NDAUbnowOuQhEYqydy/4XXe1sVrRcv8guMaM=
 node_js:
 - '0.12'
+before_script:
+- ./bin/run-jscs.sh
 after_script:
 - npm run coveralls
+notifications:
+  email:
+    - ogataken@gmail.com
+branches:
+  only:
+    - master
