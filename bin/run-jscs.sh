@@ -22,20 +22,20 @@ if [ -n "${TRAVIS_PULL_REQUEST}" ] && [ "${TRAVIS_PULL_REQUEST}" != "false" ]; t
 
   echo jscs
   git diff --name-only origin/master \
-   | grep -E '*.js$|*.json$'
+   | grep -E '*.js$|*.json$' \
    | xargs ./node_modules/gulp-jscs/node_modules/.bin/jscs \
        --reporter checkstyle
 
   echo checkstyle_filter-git
   git diff --name-only origin/master \
-   | grep -E '*.js$|*.json$'
+   | grep -E '*.js$|*.json$' \
    | xargs ./node_modules/gulp-jscs/node_modules/.bin/jscs \
        --reporter checkstyle \
    | checkstyle_filter-git diff origin/master
 
   echo saddler
   git diff --name-only origin/master \
-   | grep -E '*.js$|*.json$'
+   | grep -E '*.js$|*.json$' \
    | xargs ./node_modules/gulp-jscs/node_modules/.bin/jscs \
        --reporter checkstyle \
    | checkstyle_filter-git diff origin/master \
