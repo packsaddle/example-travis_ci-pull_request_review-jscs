@@ -1,5 +1,43 @@
 # example-travis_ci-pull_request_review-jscs 
-[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-url]][daviddm-image] [![Coverage Status][coveralls-image]][coveralls-url]
+
+run jscs and pull request review comment
+
+[Actual script for TravisCI](./bin/run-jscs.sh)
+
+```
+# .travis.yml
+before_script: ./bin/run-jscs.sh
+
+# bin/run-jscs.sh
+#!/bin/bash
+set -v
+if [ -n "${TRAVIS_PULL_REQUEST}" ] && [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then
+  gem install --no-document checkstyle_filter-git saddler saddler-reporter-github
+
+  git diff --name-only origin/master \
+   | grep -e '\.js$' \
+   | xargs ./node_modules/gulp-jscs/node_modules/.bin/jscs \
+       --reporter checkstyle \
+   | checkstyle_filter-git diff origin/master \
+   | saddler report \
+      --require saddler/reporter/github \
+      --reporter Saddler::Reporter::Github::PullRequestReviewComment
+fi
+
+exit 0
+```
+
+If you prefer to exec `after_script`, you can set this. see: [Travis CI: Configuring your build](http://docs.travis-ci.com/user/build-configuration/)
+
+## Setting
+
+[Travis CI: Encryption keys](http://docs.travis-ci.com/user/encryption-keys/)
+
+```
+$ gem install travis
+$ travis encrypt -r <owner_name>/<repos_name> "GITHUB_ACCESS_TOKEN=<github_token>"
+```
+
 
 The best module ever.
 
