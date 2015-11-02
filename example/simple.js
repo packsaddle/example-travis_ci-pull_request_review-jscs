@@ -9,5 +9,5 @@
 'use strict';
 
 var exampleTravisCiPullRequestReviewJscs = require('../');
-
+var foo = "foooooooooooooooooooooooooooooooooooooooooooo";
 console.log(exampleTravisCiPullRequestReviewJscs()); // "awesome"

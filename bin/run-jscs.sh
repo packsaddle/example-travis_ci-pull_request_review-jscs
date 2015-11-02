@@ -39,7 +39,7 @@ if [ -n "${TRAVIS_PULL_REQUEST}" ] && [ "${TRAVIS_PULL_REQUEST}" != "false" ]; t
    | xargs ./node_modules/gulp-jscs/node_modules/.bin/jscs \
        --reporter checkstyle \
    | checkstyle_filter-git diff origin/master \
-   | saddler report \
+   | OCTOKIT_API_ENDPOINT='https://example.com/api/v3/' saddler report \
       --require saddler/reporter/github \
       --reporter Saddler::Reporter::Github::PullRequestReviewComment
 fi
